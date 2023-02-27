@@ -16,6 +16,10 @@ class Disposable {
     this.disposed = false;
   }
 
+  isDisposed() {
+    return this.disposed;
+  }
+
   /**
    * Clean up.
    */

@@ -8,6 +8,13 @@
  */
 export default {
   /**
+   * Dispose event. Triggered when an observable is disposed
+   * @event module:ol/events/Event~BaseEvent#dispose
+   * @api
+   */
+  DISPOSE: 'dispose',
+
+  /**
    * Generic change event. Triggered when the revision counter is increased.
    * @event module:ol/events/Event~BaseEvent#change
    * @api

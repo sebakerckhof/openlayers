@@ -3,7 +3,7 @@
  */
 import EventTarget from './events/Target.js';
 import EventType from './events/EventType.js';
-import {listen, listenOnce, unlistenByKey} from './events.js';
+import { listen, listenOnce, unlistenByKey } from './events.js';
 
 /***
  * @template {string} Type
@@ -19,7 +19,7 @@ import {listen, listenOnce, unlistenByKey} from './events.js';
  */
 
 /**
- * @typedef {'change'|'error'} EventTypes
+ * @typedef {'change'|'error'|'dispose'} EventTypes
  */
 
 /***
@@ -42,15 +42,11 @@ class Observable extends EventTarget {
   constructor() {
     super();
 
-    this.on =
-      /** @type {ObservableOnSignature<import("./events").EventsKey>} */ (
-        this.onInternal
-      );
+    this.on = /** @type {ObservableOnSignature<import("./events").EventsKey>} */ (this.onInternal);
 
-    this.once =
-      /** @type {ObservableOnSignature<import("./events").EventsKey>} */ (
-        this.onceInternal
-      );
+    this.once = /** @type {ObservableOnSignature<import("./events").EventsKey>} */ (
+      this.onceInternal
+    );
 
     this.un = /** @type {ObservableOnSignature<void>} */ (this.unInternal);
 
@@ -136,6 +132,14 @@ class Observable extends EventTarget {
     } else {
       this.removeEventListener(type, listener);
     }
+  }
+
+  /**
+   * Clean up.
+   */
+  disposeInternal() {
+    this.dispatchEvent(EventType.DISPOSE);
+    super.disposeInternal();
   }
 }
 

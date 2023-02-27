@@ -127,6 +127,20 @@ describe('ol/Observable.js', function () {
     });
   });
 
+  describe('events', () => {
+    let observable, listener;
+    beforeEach(function () {
+      observable = new Observable();
+      listener = sinon.spy();
+    });
+
+    it('fires a dispose event', function () {
+      observable.on('dispose', listener);
+      observable.dispose();
+      expect(listener.calledOnce).to.be(true);
+    });
+  });
+
   describe('ol.Observable.unByKey()', function () {
     let observable, listener;
     beforeEach(function () {
